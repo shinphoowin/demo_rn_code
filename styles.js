@@ -19,7 +19,7 @@ export default StyleSheet.create({
   },
   container_nocenterCnt: {
     flex: 1,
-    paddingTop: 53,
+    paddingTop: 22,
     paddingLeft: 15,
     paddingRight: 15,
     paddingBottom: 36

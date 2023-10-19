@@ -11,17 +11,20 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import NotesEncrypted from './app/views/secure-notes';
 import NotesEncryptedList from './app/views/secure-notes/Notes';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { View } from 'react-native';
 
 const Stack = createNativeStackNavigator();
 function App(): JSX.Element {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Login"
-        screenOptions={{
-          headerShown: false
-        }}>
-        <Stack.Screen name='Login' component={LoginBiometric}></Stack.Screen>
-        <Stack.Screen name='Notesencrypt' component={NotesEncrypted}></Stack.Screen>
+      <Stack.Navigator initialRouteName="LoginBiometric"
+      // screenOptions={{
+      //   headerShown: false,
+      // }}        
+      >
+        <Stack.Screen name='LoginBiometric' component={LoginBiometric} options={{ headerShown: false }}></Stack.Screen>
+        <Stack.Screen name='Notesencrypt' component={NotesEncrypted} options={{ headerShown: false }}></Stack.Screen>
         <Stack.Screen name='NotesencryptedList' component={NotesEncryptedList}></Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>

@@ -3,6 +3,8 @@ import { View, TextInput, Alert, Platform } from 'react-native';
 import Button from '../../components/forms/Button';
 import styles from '../../../styles';
 import ReactNativeBiometrics, { BiometryTypes } from 'react-native-biometrics';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { handleHash } from '../../helpers';
 
 const LoginBiometric = ({ navigation }) => {
   const [password, setPassword] = useState("")
@@ -19,7 +21,11 @@ const LoginBiometric = ({ navigation }) => {
 
               // call api to save key to server, that will use to extract userId
               // sendPublicKeyToServer(publicKey)
-              navigation.navigate('Notesencrypt');
+              try {
+                await AsyncStorage.setItem("auth", handleHash(password)).then(() => navigation.navigate("Notesencrypt"));        
+              } catch (error) {
+                console.log(error);
+              }
             })
         } else {
           console.log('user cancelled biometric prompt')
@@ -79,11 +85,15 @@ const LoginBiometric = ({ navigation }) => {
   }
 
   const handlePasswordLogin = async () => {
-    if (password === "12345678") {
-      navigation.navigate("Notesencrypt");
+    if (password === "1234") {     
       //save data to localStorage to persist login state or dispatch redux auth fun in real life project
+      try {
+        await AsyncStorage.setItem("auth", handleHash(password)).then(() => navigation.navigate("Notesencrypt"));        
+      } catch (error) {
+        console.log(error);
+      }
     }else{
-        Alert.alert("12345678 is pwd :D")
+        Alert.alert("1234 is pwd")
     }
   }
   return (

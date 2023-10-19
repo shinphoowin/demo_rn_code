@@ -5,9 +5,10 @@ import Note from './Note';
 import { handleDecrypt, handleEncrypt } from '../../helpers';
 
 const NotesEncryptedList = ({ route, navigation }) => {
+  const {secureNotes} = route.params;
 
   const handleUpdate = (id, updateText) => {
-    route?.params?.secureNotes?.map(secureNote => {
+    secureNotes.map(secureNote => {
       if (secureNote.id === id) {
         secureNote.text = updateText;
       }
@@ -15,7 +16,7 @@ const NotesEncryptedList = ({ route, navigation }) => {
     })
   }
 
-  const NotesList = route?.params?.secureNotes?.map(secureNote =>
+  const NotesList = secureNotes.map(secureNote =>
     <Note key={secureNote.id}
       style={{ color: '#000' }}
       secureNote={secureNote}
@@ -26,9 +27,7 @@ const NotesEncryptedList = ({ route, navigation }) => {
 
   return (
     <View style={[styles.container_nocenterCnt]}>
-      <TouchableOpacity onPress={() => navigation.goBack()}>
-        <Text style={styles.textColorBlack}>Back</Text></TouchableOpacity>
-      <View style={{ marginTop: 0 }}>
+      <View>
         <Text style={styles.textColorBlack}>Your Secure Notes</Text>
         {NotesList}
       </View>
