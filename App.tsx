@@ -6,64 +6,25 @@
  */
 
 import React from 'react';
-import type {PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  TextInput,
-  useColorScheme,
-  View,
-} from 'react-native';
-
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
 import LoginBiometric from './app/views/auth';
-import Button from './app/components/forms/Button';
-import styles from './styles';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import NotesEncrypted from './app/views/secure-notes';
+import NotesEncryptedList from './app/views/secure-notes/Notes';
 
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
-
-function Section({children, title}: SectionProps): JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <SafeAreaView>
-        <View>
-        </View>
-    </SafeAreaView>
-  );
-}
-
+const Stack = createNativeStackNavigator();
 function App(): JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
   return (
-    <SafeAreaView style={[styles.container]}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic">
-        <View>
-           <TextInput style={styles.inputStyle}/>
-          <LoginBiometric/>   
-          <Button/>      
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Login"
+        screenOptions={{
+          headerShown: false
+        }}>
+        <Stack.Screen name='Login' component={LoginBiometric}></Stack.Screen>
+        <Stack.Screen name='Notesencrypt' component={NotesEncrypted}></Stack.Screen>
+        <Stack.Screen name='NotesencryptedList' component={NotesEncryptedList}></Stack.Screen>
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 export default App;
